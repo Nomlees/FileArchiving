@@ -10,12 +10,13 @@ public class Demo {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите путь с названием файла");
+        System.out.println("Введите путь к файлу:");
         String filename = scanner.nextLine();
-
-        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream("D:\\output.zip"));
+        String[] file = filename.split("\\.");
+       // String files = file[0];
+        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(file[0]+".zip"));
              FileInputStream fis = new FileInputStream(filename)) {
-            ZipEntry entry1 = new ZipEntry("notes.jpg");
+            ZipEntry entry1 = new ZipEntry("notes.txt");
             zout.putNextEntry(entry1);
             // считываем содержимое файла в массив byte
             byte[] buffer = new byte[fis.available()];
@@ -31,6 +32,7 @@ public class Demo {
             long nsize = entry1.getSize();
             System.out.println("Размер исходного файла " + nsize);
             System.out.println("Размер после сжатия " +  size);
+            System.out.println("Путь к архиву " +file[0]+".zip" );
 
         } catch (Exception ex) {
 
